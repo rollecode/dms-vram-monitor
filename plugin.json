@@ -1,0 +1,13 @@
+{
+    "id": "vramMonitor",
+    "name": "VRAM Monitor",
+    "description": "NVIDIA VRAM usage as an animated progress bar in the DankBar, updated every second",
+    "version": "1.1.0",
+    "author": "Rolle Laukkarinen",
+    "icon": "developer_board",
+    "type": "widget",
+    "capabilities": ["dankbar-widget"],
+    "component": "./VramWidget.qml",
+    "settings": "./VramSettings.qml",
+    "permissions": ["settings_read", "settings_write"]
+}
