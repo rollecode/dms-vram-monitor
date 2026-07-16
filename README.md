@@ -30,6 +30,7 @@ Then enable it in Settings, Plugins, and add the widget to your bar layout in Se
 
 - **Show label**: toggle the text label between the icon and the bar (on by default)
 - **Label text**: customize the label (default `VRAM`)
+- **Entries to show**: how many rows the popout lists, 5 to 60 (default 30)
 
 ## License
 
