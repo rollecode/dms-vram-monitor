@@ -98,7 +98,11 @@ PluginComponent {
                     out.push({ mib: reserved, pid: "-", name: "Reserved (driver)", detail: "", killable: false, free: false })
                 if (total > 0)
                     for (const r of out) r.share = r.mib / total
-                out.sort((a, b) => (a.free !== b.free) ? (a.free ? -1 : 1) : b.mib - a.mib)
+                out.sort((a, b) => {
+                    if (a.free !== b.free) return a.free ? -1 : 1
+                    if (a.killable !== b.killable) return a.killable ? 1 : -1
+                    return b.mib - a.mib
+                })
                 root.rows = out.slice(0, root.topCount)
             }
         }
@@ -152,6 +156,11 @@ PluginComponent {
             }
 
             StyledText {
+                // Fixed width: digits changing every second must not resize
+                // the pill, or the bar relayouts constantly and hit-testing
+                // chases stale geometry.
+                width: 34
+                horizontalAlignment: Text.AlignRight
                 text: `${root.vramPercent.toFixed(0)}%`
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.surfaceText
@@ -212,6 +221,8 @@ PluginComponent {
                                     font.pixelSize: Theme.fontSizeSmall - 1
                                     color: Theme.surfaceVariantText
                                     opacity: 0.55
+                                    wrapMode: Text.NoWrap
+                                    maximumLineCount: 1
                                     elide: Text.ElideRight
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
@@ -243,7 +254,7 @@ PluginComponent {
                                         width: parent.width * Math.min(modelData.share || 0, 1)
                                         height: parent.height
                                         radius: parent.radius
-                                        color: modelData.free ? Theme.primary : (modelData.killable ? root.usageColor((modelData.share || 0) * 100) : Theme.surfaceVariantText)
+                                        color: modelData.free ? Theme.primary : root.usageColor((modelData.share || 0) * 100)
                                     }
                                 }
                             }

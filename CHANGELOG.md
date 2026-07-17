@@ -1,5 +1,12 @@
 # Changelog
 
+### 1.3.0: 2026-07-17
+
+* Pin Free topmost, then rows that cannot be killed (driver reserved), processes below
+* Colour every popout bar with the orange and red thresholds; Free keeps the accent
+* Keep the pill a constant width: digits changing every second no longer resize it and churn the bar layout
+* Keep row explanations on one line, never wrapping
+
 ### 1.2.0: 2026-07-17
 
 * Add a popout listing what is actually using VRAM, biggest first, with a kill icon on each process
