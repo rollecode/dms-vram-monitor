@@ -1,5 +1,16 @@
 # Changelog
 
+### 1.6.0: 2026-08-05
+
+* Render in vertical DankBars: the widget had no vertical pill and so drew nothing at all in a left or right bar
+* Stack the icon, chart and percentage in a vertical bar, and drop the text label there — it never fits a bar one icon wide
+* Add a chart style setting: horizontal bar, vertical bar, gauge, donut, pie, or none
+* Add **Icon inside chart** for the round styles, drawing the icon in the middle instead of beside it; the chart grows to make room, capped at the thickness of your bar
+* Add a thickness slider for the two bar styles
+* Draw the round styles with GPU-accelerated shapes rather than Canvas, so nothing rasterizes on the CPU every second
+* Add an icon picker: search the whole Material Symbols catalog, browse curated categories, or type a name directly; clear it to go back to `developer_board`
+* Vendor the Material Symbols name index (`assets/`), which DMS ships the font for but not the index, and whose install path varies by version
+
 ### 1.5.0: 2026-07-26
 
 * Warm the popout list in the background so it paints instantly instead of filling in up to a second after opening
