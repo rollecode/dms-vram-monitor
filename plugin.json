@@ -1,8 +1,8 @@
 {
   "id": "vramMonitor",
   "name": "VRAM Monitor",
-  "description": "NVIDIA VRAM usage as an animated progress bar in the DankBar, updated every second",
-  "version": "1.5.0",
+  "description": "NVIDIA VRAM usage as an animated chart in the DankBar, updated every second",
+  "version": "1.6.0",
   "author": "Rolle Laukkarinen",
   "icon": "developer_board",
   "type": "widget",

@@ -13,10 +13,20 @@ PluginComponent {
     property real vramTotal: 0.0
     property real vramPercent: 0.0
     property bool showLabel: pluginData.showLabel !== false
+    property bool iconInChart: pluginData.iconInChart !== false
     property string labelText: pluginData.labelText || "VRAM"
+    property string chartStyle: pluginData.chartStyle || "hbar"
     property int topCount: pluginData.topCount || 30
     property var rows: []
     property bool popoutOpen: false
+
+    // A blank name means "not chosen yet" rather than "no icon", so it falls back
+    // to the plugin's own symbol instead of leaving a hole in the pill.
+    readonly property string iconName: {
+        const chosen = String(pluginData.iconName || "").trim()
+        return chosen.length > 0 ? chosen : "developer_board"
+    }
+    readonly property real chartBarThickness: Math.max(0.05, Math.min(1, Number(pluginData.chartBarThickness || 35) / 100))
 
     // Bar-aware sizing: the DankBar carries its own font scale and thickness,
     // and a pill that ignores them stays put while everything else resizes.
@@ -26,14 +36,6 @@ PluginComponent {
         if (percent > 90) return Theme.error
         if (percent > 75) return "#ffa500"
         return Theme.primary
-    }
-
-    // Reserve exactly the width of the widest value so the pill never resizes
-    // as digits change, without parking short values far from the bar.
-    TextMetrics {
-        id: pctMetrics
-        font.pixelSize: root.pillFont
-        text: "100%"
     }
 
     function fmtVram() {
@@ -136,57 +138,15 @@ PluginComponent {
     }
 
     horizontalBarPill: Component {
-        Row {
-            spacing: Theme.spacingS
+        VramPill {
+            pluginRoot: root
+        }
+    }
 
-            DankIcon {
-                name: "developer_board"
-                size: root.iconSizeLarge
-                color: Theme.surfaceText
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            StyledText {
-                visible: root.showLabel
-                text: root.labelText
-                font.pixelSize: root.pillFont
-                color: Theme.surfaceText
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Row {
-                spacing: 4
-                anchors.verticalCenter: parent.verticalCenter
-
-                Rectangle {
-                    width: Math.round(root.pillFont * 3.7)
-                    height: Math.max(4, Math.round(root.pillFont / 2))
-                    radius: height / 2
-                    color: Qt.rgba(Theme.surfaceText.r, Theme.surfaceText.g, Theme.surfaceText.b, 0.25)
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    Rectangle {
-                        width: parent.width * Math.min(root.vramPercent, 100) / 100
-                        height: parent.height
-                        radius: parent.radius
-                        color: root.usageColor(root.vramPercent)
-                        Behavior on width { NumberAnimation { duration: 400; easing.type: Easing.OutCubic } }
-                        Behavior on color { ColorAnimation { duration: 400 } }
-                    }
-                }
-
-                StyledText {
-                    // Reserve the widest value's width so the pill never resizes
-                    // as digits change, but align left: right-aligning would park
-                    // short values far from the bar.
-                    width: pctMetrics.width
-                    horizontalAlignment: Text.AlignLeft
-                    text: `${root.vramPercent.toFixed(0)}%`
-                    font.pixelSize: root.pillFont
-                    color: Theme.surfaceText
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
+    verticalBarPill: Component {
+        VramPill {
+            pluginRoot: root
+            isVerticalOrientation: true
         }
     }
 
