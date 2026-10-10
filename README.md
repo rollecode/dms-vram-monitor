@@ -1,6 +1,6 @@
 # VRAM Monitor
 
-NVIDIA VRAM usage as an animated progress bar in your [DankBar](https://github.com/AvengeMedia/DankMaterialShell), updated every second.
+NVIDIA VRAM usage as an animated progress bar in your [DankBar](https://github.com/AvengeMedia/DankMaterialShell), updated every 2 seconds by default.
 
 ![Screenshot](Screenshot.png)
 
@@ -9,7 +9,7 @@ Shown next to its sibling [RAM Monitor](https://github.com/rollecode/dms-ram-mon
 ## What it does
 
 - Compact bar pill: icon, optional label, animated progress bar and percentage
-- Updates every second from `nvidia-smi --query-gpu=memory.used,memory.total`
+- Updates every 2 seconds from `nvidia-smi --query-gpu=memory.used,memory.total`, adjustable from 1 to 10 seconds
 - Fill follows your theme accent, turns orange above 75% and red above 90%
 
 ## Requirements

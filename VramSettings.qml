@@ -17,7 +17,7 @@ PluginSettings {
 
     StyledText {
         width: parent.width
-        text: "NVIDIA VRAM usage as an animated progress bar in your DankBar, Needs nvidia-smi."
+        text: "NVIDIA VRAM usage as an animated progress bar in your DankBar. Needs nvidia-smi."
         font.pixelSize: Theme.fontSizeSmall
         color: Theme.surfaceVariantText
         wrapMode: Text.WordWrap
